@@ -113,4 +113,9 @@ app.use((error, _req, res, _next) => {
 });
 
 if (require.main === module) app.listen(PORT, () => console.log(`SELOM SMART disponible sur ${SITE_URL}`));
-module.exports = { app, orderSchema, productSchema };
+// Vercel attend que le module exporte directement l’application Express.
+// Les schémas restent attachés à l’application pour les tests automatisés.
+app.app = app;
+app.orderSchema = orderSchema;
+app.productSchema = productSchema;
+module.exports = app;
