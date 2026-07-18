@@ -51,7 +51,7 @@ Avant la mise en production, complétez la vérification serveur de la notificat
 5. Dans **Settings > Environment Variables**, ajoutez `DATABASE_URL`, `DATABASE_SSL=true`, `SITE_URL`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `JWT_SECRET` et `WHATSAPP_NUMBER=22899234616`.
 6. Redéployez après l’ajout des variables, puis contrôlez `/api/health` et passez une commande test.
 
-Le fichier `vercel.json` redirige les pages et les API vers l’application Express serverless. Le fichier `api/index.js` exporte l’application sans démarrer un serveur permanent, conformément au fonctionnement de Vercel.
+Vercel détecte directement l’application Express exportée par `src/server.js`. Aucune redirection manuelle ni fonction `/api` séparée n’est nécessaire.
 
 Ne laissez pas l’application en mode mémoire sur Vercel : les fonctions serverless peuvent redémarrer et perdre les commandes. Une base Neon ou Supabase est indispensable.
 
