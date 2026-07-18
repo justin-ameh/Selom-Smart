@@ -90,6 +90,9 @@ app.post("/api/payments/cinetpay/notify", express.urlencoded({ extended: false }
 });
 
 app.post("/api/admin/login", (req, res) => {
+  if (process.env.NODE_ENV === "production" && (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD || !process.env.JWT_SECRET)) {
+    return res.status(503).json({ error: "Administration non configurée. Ajoutez les variables sécurisées dans Vercel." });
+  }
   const email = String(req.body.email || "").toLowerCase();
   const password = String(req.body.password || "");
   const validEmail = process.env.ADMIN_EMAIL || "admin@selomsmart.tg";
